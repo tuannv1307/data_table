@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import tictactoeReducer from "./tictactoeReducer";
+import datatableReducer from "./datatableReducer";
 
 const store = configureStore({
-  reducer: { tictactoe: tictactoeReducer },
+  reducer: { datatable: datatableReducer },
 });
 
 export type RootState = ReturnType<typeof store.getState>;

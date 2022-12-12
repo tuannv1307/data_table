@@ -28,12 +28,15 @@
     text-align: left;
     box-sizing: content-box;
 }
-.root > tbody > tr  {
-    border-top: 1px solid rgba(0,0,0,.15);
+
+.root > tbody > tr> td {
+    border-top: 1px solid rgba(0, 0, 0, .15);
 }
-.root > tbody > tr :first-child {
+
+.root > tbody > tr:first-child > td {
     border-top: none;
 }
+
 .dtrControl {
     position: relative;
     padding-left: 32px !important;
@@ -41,7 +44,7 @@
 }
 
 .dtrControl::before {
-       top: 50%;
+    top: 46%;
     left: 5px;
     height: 1em;
     width: 1em;
@@ -55,7 +58,7 @@
     box-sizing: content-box;
     text-align: center;
     text-indent: 0 !important;
-    font-family: "Courier New",Courier,monospace;
+    font-family: "Courier New", Courier, monospace;
     line-height: 1em;
     content: "+";
     background-color: #31b131;
@@ -66,7 +69,7 @@
     background-color: #d33333;
 } */
 
-.sorting::before{
+.sorting::before {
     position: absolute;
     display: block;
     opacity: .125;
@@ -78,27 +81,28 @@
     content: "▲";
 }
 
-.sorting::after{
- position: absolute;
+.sorting::after {
+    position: absolute;
     display: block;
     opacity: .125;
     right: 10px;
     line-height: 9px;
     font-size: .8em;
-        top: 51%;
-        right: 0;
+    top: 51%;
+    right: 0;
     content: "▼";
 }
+
 .root > tbody > tr:nth-child(odd) {
-        box-shadow: inset 0 0 0 9999px rgb(0 0 0 / 2%)
+    box-shadow: inset 0 0 0 9999px rgb(0 0 0 / 2%)
 }
 
-.root > tbody > tr:nth-child(odd)> td:first-child {
-        box-shadow: inset 0 0 0 9999px rgb(0 0 0 / 5%)
+.root > tbody > tr:nth-child(odd) > td:first-child {
+    box-shadow: inset 0 0 0 9999px rgb(0 0 0 / 5%)
 }
 
-.root > tbody > tr:hover> td:first-child {
-        box-shadow: inset 0 0 0 9999px rgb(0 0 0 / 8%)
+.root > tbody > tr:hover > td:first-child {
+    box-shadow: inset 0 0 0 9999px rgb(0 0 0 / 8%)
 }
 
 .root > tbody > tr > td {
@@ -106,11 +110,11 @@
 }
 
 .root > tbody > tr:hover {
-     box-shadow: inset 0 0 0 9999px rgb(0 0 0 / 4%)
+    box-shadow: inset 0 0 0 9999px rgb(0 0 0 / 4%)
 }
 
 .root > tbody > tr > td:first-child {
-       box-shadow: inset 0 0 0 9999px rgb(0 0 0 / 2%)
+    box-shadow: inset 0 0 0 9999px rgb(0 0 0 / 2%)
 }
 
 .name {

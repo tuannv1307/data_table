@@ -1,9 +1,25 @@
-import React, { useEffect } from "react";
+import _ from "lodash";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { dataSet } from "../../constants";
+import { getData } from "../../store/datatableReducer";
 
 import { st, classes } from "./DataTable.st.css";
 const DataTable = () => {
-  useEffect(() => {}, []);
+  const data = useSelector((state: any) => state.datatable);
+  const [isShow, setIsShow] = useState(false);
+  console.log(data);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getData(dataSet));
+  }, []);
+  const handleClickShow = () => {
+    setIsShow(!isShow);
+  };
+
+  const abc = _.map(data, (i) => console.log(i));
+
+  console.log(abc);
 
   return (
     <table id="example" className={st(classes.root)}>
@@ -18,27 +34,19 @@ const DataTable = () => {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td className={st(classes.dtrControl)}>1</td>
-          <td>1</td>
-          <td>1</td>
-          <td>1</td>
-          <td>1</td>
-        </tr>
-        <tr>
-          <td className={st(classes.dtrControl)}>1</td>
-          <td>1</td>
-          <td>1</td>
-          <td>1</td>
-          <td>1</td>
-        </tr>
-        <tr>
-          <td className={st(classes.dtrControl)}>2</td>
-          <td>2</td>
-          <td>2</td>
-          <td>2</td>
-          <td>2</td>
-        </tr>
+        <>
+          <tr>
+            <td className={st(classes.dtrControl)} onClick={handleClickShow}>
+              1
+            </td>
+            <td>1</td>
+
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+          </tr>
+          <tr>{isShow ? <td colSpan={5}>5</td> : ""}</tr>
+        </>
       </tbody>
       <tfoot>
         <tr>
