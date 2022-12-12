@@ -1,0 +1,40 @@
+.root {
+    width: 100%;
+    margin: 0 auto;
+    clear: both;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+
+.root > thead > tr > th {
+    cursor: pointer;
+    position: relative;
+    padding-right: 26px;
+    white-space: nowrap;
+    padding: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, .3);
+    text-align: left;
+    box-sizing: content-box;
+}
+
+
+.name {
+    width: 120px;
+}
+
+.position {
+    width: 192px;
+}
+
+.office {
+    width: 89px;
+}
+
+.extn {
+    width: 35px;
+}
+
+.StartDate {
+    width: 78px;
+}
