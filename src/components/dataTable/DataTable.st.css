@@ -1,0 +1,74 @@
+.root {
+    -st-states: isShowClick;
+}
+
+.dtrControl {
+    position: relative;
+    padding-left: 32px !important;
+    cursor: pointer;
+}
+
+.dtrControl::before {
+    top: 46%;
+    left: 5px;
+    height: 1em;
+    width: 1em;
+    margin-top: -9px;
+    display: block;
+    position: absolute;
+    color: white;
+    border: 0.15em solid white;
+    border-radius: 1em;
+    box-shadow: 0 0 0.2em #444;
+    box-sizing: content-box;
+    text-align: center;
+    text-indent: 0 !important;
+    font-family: "Courier New", Courier, monospace;
+    line-height: 1em;
+    content: "+";
+    background-color: #31b131;
+}
+
+.root:isShowClick > .dtrControl::before {
+    content: "-";
+    background-color: #d33333;
+}
+
+
+.salaryTitle {
+    font-weight: bold;
+    font-size: 15px;
+}
+
+
+.salaryContent {
+    float: right;
+    font-size: 15px;
+}
+
+
+.inputEdit {
+    width: 100%;
+    outline: none;
+}
+
+
+.trBtnSave {
+    text-align: center;
+}
+
+.trBtnSave > td > button {
+    font-size: initial;
+    background-color: #fff;
+    outline: none;
+    border: none;
+    border-radius: 2px;
+    padding: 5px 7px;
+    color: #333;
+    cursor: pointer;
+}
+
+.trBtnSave > td > button:hover {
+    background-color: #333;
+    color: #fff;
+}

@@ -1,17 +1,50 @@
-import { useState, useEffect, KeyboardEvent, useRef } from "react";
+import { useState, useEffect, ChangeEvent } from "react";
 import { Provider, useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import _ from "lodash";
 import store from "./store/store";
-import DataTable from "./components/DataTable/DataTable";
+import DataTables from "./components/DataTables";
 import { st, classes } from "./App.st.css";
 
 import "./globals.st.css";
+import { getData, showDataTable } from "./store/datatableReducer";
+import { dataSet } from "./constants";
+
+const showData = (arr: [], value: string) => {
+  return arr.filter((i, index) => index < _.toNumber(value));
+};
 
 function App() {
-  const tableRef = useRef();
+  const dispatch = useDispatch();
+  const data = useSelector((state: any) => state.datatable);
+  let dataTable = data?.data;
+  const lengthData = dataTable?.length;
+  const sizeData = data?.sizeData;
+  const valueBtn = data?.valueBtn;
+  const disabled = data?.disabled;
 
-  console.log(tableRef.current);
+  useEffect(() => {
+    dispatch(getData(dataSet));
+  }, [dispatch]);
+
+  const handleChangesizeData = (e: ChangeEvent<HTMLSelectElement>) => {
+    dispatch(showDataTable(e.target.value));
+    showData(dataTable, sizeData);
+  };
+
+  const [curentBtn, setCurrentBtn] = useState(false);
+
+  const handleClickBtn = (value: string) => {
+    setCurrentBtn(!curentBtn);
+    return value;
+  };
+
+  const handleClickBtnPrevious = (type: string) => {
+    console.log(type);
+  };
+
+  console.log(data);
+
   return (
     <div className={st(classes.root)} data-hook="app">
       <div className={st(classes.dataTablesWrapper)}>
@@ -19,9 +52,9 @@ function App() {
           <label>
             Show{" "}
             <select
-              name="example_length"
-              aria-controls="example"
               className={st(classes.selectLength)}
+              onChange={handleChangesizeData}
+              value={sizeData}
             >
               <option value="10">10</option>
               <option value="25">25</option>
@@ -42,7 +75,7 @@ function App() {
             />
           </label>
         </div>
-        <DataTable />
+        <DataTables dataTable={showData(dataTable, sizeData)} />
         <div className={st(classes.footer)}>
           <div
             className={st(classes.dataTablesInfo)}
@@ -50,67 +83,58 @@ function App() {
             role="status"
             aria-live="polite"
           >
-            Showing 1 to 10 of 57 entries
+            Showing 1 to {showData(dataTable, sizeData).length} of {lengthData}{" "}
+            entries
           </div>
           <div className={st(classes.dataTablesPaginate)} id="example_paginate">
             <a
               // className="paginate_button previous disabled"
-              className={st(classes.paginateButton)}
-              aria-controls="example"
-              data-dt-idx="previous"
-              id="example_previous"
+              className={st(classes.paginateButton, { disabled })}
+              onClick={() => handleClickBtnPrevious("PREVIOUS")}
             >
               Previous
             </a>
             <span>
               <a
-                className={st(classes.paginateButton)}
-                aria-controls="example"
-                data-dt-idx="0"
+                className={st(classes.paginateButton, { curentBtn })}
+                onClick={() => handleClickBtn("1")}
               >
                 1
               </a>
               <a
-                className={st(classes.paginateButton)}
-                aria-controls="example"
-                data-dt-idx="1"
+                className={st(classes.paginateButton, { curentBtn })}
+                onClick={() => handleClickBtn("2")}
               >
                 2
               </a>
               <a
-                className={st(classes.paginateButton)}
-                aria-controls="example"
-                data-dt-idx="2"
+                className={st(classes.paginateButton, { curentBtn })}
+                onClick={() => handleClickBtn("3")}
               >
                 3
               </a>
               <a
-                className={st(classes.paginateButton)}
-                aria-controls="example"
-                data-dt-idx="3"
+                className={st(classes.paginateButton, { curentBtn })}
+                onClick={() => handleClickBtn("4")}
               >
                 4
               </a>
               <a
-                className={st(classes.paginateButton)}
-                aria-controls="example"
-                data-dt-idx="4"
+                className={st(classes.paginateButton, { curentBtn })}
+                onClick={() => handleClickBtn("5")}
               >
                 5
               </a>
               <a
-                className={st(classes.paginateButton)}
-                aria-controls="example"
-                data-dt-idx="5"
+                className={st(classes.paginateButton, { curentBtn })}
+                onClick={() => handleClickBtn("6")}
               >
                 6
               </a>
             </span>
             <a
-              className={st(classes.paginateButton)}
-              aria-controls="example"
-              data-dt-idx="next"
-              id="example_next"
+              className={st(classes.paginateButton, { disabled })}
+              onClick={() => handleClickBtnPrevious("NEXT")}
             >
               Next
             </a>

@@ -24,7 +24,7 @@
 
     overflow: -moz-scrollbars-none;
     color: white;
-
+    font-size: 14px;
     font-family:
         system-ui,
         /* macOS 10.11-10.12 */
@@ -65,18 +65,3 @@
 :global(span) {
     display: inline-block !important;
 }
-
-/* :global(button) {
-    font-size: 20px;
-    vertical-align: baseline;
-    font-family: inherit;
-    font-weight: inherit;
-    color: inherit;
-    cursor: pointer;
-    background-color: #24292f;
-    color: #ddd;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 3px;
-
-} */
