@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useState, KeyboardEvent } from "react";
 import _ from "lodash";
 import { useDispatch } from "react-redux";
 import { editDataTable } from "../../store/datatableReducer";
@@ -57,7 +57,20 @@ const DataTable = ({
     setInputEditData({ ...inputEditData, [e.target.name]: e.target.value });
   };
 
-  const hanldeSubmitEditData = () => {
+  const handleKeyDow = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      if (id) {
+        dispatch(
+          editDataTable({ nameI, positionI, officeI, extnI, start_dateI, id })
+        );
+        setIsShowDoubleClick(!isShowDoubleClick);
+      }
+    } else if (e.key === "Escape") {
+      setIsShowDoubleClick(!isShowDoubleClick);
+    }
+  };
+
+  const handleBlurEdit = () => {
     if (id) {
       dispatch(
         editDataTable({ nameI, positionI, officeI, extnI, start_dateI, id })
@@ -67,36 +80,10 @@ const DataTable = ({
   };
   return (
     <>
-      <tr className={st(classes.root, { isShowClick })}>
-        <td
-          className={st(classes.dtrControl)}
-          onClick={handleClickShow}
-          onDoubleClick={handleDoubleCliclEdit}
-        >
-          {name}
-        </td>
-        <td>{position}</td>
-
-        <td>{office}</td>
-        <td>{extn}</td>
-        <td>{start_date}</td>
-      </tr>
-      {isShowClick ? (
-        <tr>
-          <>
-            <td colSpan={1}>
-              <span className={st(classes.salaryTitle)}>Salary</span>{" "}
-              <span className={st(classes.salaryContent)}>{salary}</span>
-            </td>
-            <td colSpan={4}></td>
-          </>
-        </tr>
-      ) : null}
       {isShowDoubleClick ? (
         <>
           <tr>
             <td>
-              <label>Name:</label>
               <input
                 onChange={hanldeChangeInputEdit}
                 value={nameI}
@@ -104,56 +91,92 @@ const DataTable = ({
                 name="nameI"
                 autoFocus
                 className={st(classes.inputEdit)}
+                onKeyDown={handleKeyDow}
+                onBlur={handleBlurEdit}
               />
             </td>
             <td>
-              <label>Position:</label>
               <input
                 onChange={hanldeChangeInputEdit}
                 value={positionI}
                 type="text"
                 name="positionI"
                 className={st(classes.inputEdit)}
+                onKeyDown={handleKeyDow}
+                onBlur={handleBlurEdit}
               />
             </td>
             <td>
-              <label>Office:</label>
               <input
                 onChange={hanldeChangeInputEdit}
                 value={officeI}
                 type="text"
                 name="officeI"
                 className={st(classes.inputEdit)}
+                onKeyDown={handleKeyDow}
+                onBlur={handleBlurEdit}
               />
             </td>
             <td>
-              <label>Extn. :</label>
               <input
                 onChange={hanldeChangeInputEdit}
                 value={extnI}
                 type="text"
                 name="extnI"
                 className={st(classes.inputEdit)}
+                onKeyDown={handleKeyDow}
+                onBlur={handleBlurEdit}
               />
             </td>
             <td>
-              <label>Start date:</label>
               <input
                 onChange={hanldeChangeInputEdit}
                 value={start_dateI}
                 type="text"
                 name="start_dateI"
                 className={st(classes.inputEdit)}
+                onKeyDown={handleKeyDow}
+                onBlur={handleBlurEdit}
               />
             </td>
           </tr>
-          <tr className={st(classes.trBtnSave)}>
+          {/* <tr className={st(classes.trBtnSave)}>
             <td colSpan={5}>
-              <button onClick={hanldeSubmitEditData}>Save</button>
+              <button onClick={hanldeSubmitEditData} onKeyDown={handleKeyDow}>
+                Save
+              </button>
             </td>
-          </tr>
+          </tr> */}
         </>
-      ) : null}
+      ) : (
+        <>
+          <tr className={st(classes.root, { isShowClick })}>
+            <td
+              className={st(classes.dtrControl)}
+              onClick={handleClickShow}
+              onDoubleClick={handleDoubleCliclEdit}
+            >
+              {name}
+            </td>
+            <td>{position}</td>
+
+            <td>{office}</td>
+            <td>{extn}</td>
+            <td>{start_date}</td>
+          </tr>
+          {isShowClick ? (
+            <tr>
+              <>
+                <td colSpan={1}>
+                  <span className={st(classes.salaryTitle)}>Salary</span>{" "}
+                  <span className={st(classes.salaryContent)}>{salary}</span>
+                </td>
+                <td colSpan={4}></td>
+              </>
+            </tr>
+          ) : null}
+        </>
+      )}
     </>
   );
 };

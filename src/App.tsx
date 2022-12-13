@@ -32,10 +32,10 @@ function App() {
     showData(dataTable, sizeData);
   };
 
-  const [curentBtn, setCurrentBtn] = useState(false);
+  // const [curentBtn, setCurrentBtn] = useState(false);
 
   const handleClickBtn = (value: string) => {
-    setCurrentBtn(!curentBtn);
+    // setCurrentBtn(!curentBtn);
     return value;
   };
 
@@ -96,37 +96,37 @@ function App() {
             </a>
             <span>
               <a
-                className={st(classes.paginateButton, { curentBtn })}
+                className={st(classes.paginateButton, { curentBtn: "1" })}
                 onClick={() => handleClickBtn("1")}
               >
                 1
               </a>
               <a
-                className={st(classes.paginateButton, { curentBtn })}
+                className={st(classes.paginateButton, { curentBtn: "2" })}
                 onClick={() => handleClickBtn("2")}
               >
                 2
               </a>
               <a
-                className={st(classes.paginateButton, { curentBtn })}
+                className={st(classes.paginateButton, { curentBtn: "3" })}
                 onClick={() => handleClickBtn("3")}
               >
                 3
               </a>
               <a
-                className={st(classes.paginateButton, { curentBtn })}
+                className={st(classes.paginateButton, { curentBtn: "4" })}
                 onClick={() => handleClickBtn("4")}
               >
                 4
               </a>
               <a
-                className={st(classes.paginateButton, { curentBtn })}
+                className={st(classes.paginateButton, { curentBtn: "5" })}
                 onClick={() => handleClickBtn("5")}
               >
                 5
               </a>
               <a
-                className={st(classes.paginateButton, { curentBtn })}
+                className={st(classes.paginateButton, { curentBtn: "6" })}
                 onClick={() => handleClickBtn("6")}
               >
                 6

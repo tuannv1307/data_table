@@ -6,31 +6,29 @@
     border-spacing: 0;
 }
 
-
 .root > thead > tr > th {
     cursor: pointer;
     position: relative;
     padding-right: 26px !important;
     white-space: nowrap;
     padding: 10px;
-    border-bottom: 1px solid rgba(0, 0, 0, .3);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
     text-align: left;
     box-sizing: content-box;
 }
 
 .root > tfoot > tr > th {
-
     position: relative;
     padding-right: 26px;
     white-space: nowrap;
     padding: 10px;
-    border-top: 1px solid rgba(0, 0, 0, .3);
+    border-top: 1px solid rgba(0, 0, 0, 0.3);
     text-align: left;
     box-sizing: content-box;
 }
 
 .root > tbody > tr > td {
-    border-top: 1px solid rgba(0, 0, 0, .15);
+    border-top: 1px solid rgba(0, 0, 0, 0.15);
 }
 
 .root > tbody > tr:first-child > td {
@@ -39,16 +37,15 @@
 
 .sorting {
     -st-states: sortingAsc, sortingDesc, isSorted;
-    width: 100%;
 }
 
 .sorting::before {
     position: absolute;
     display: block;
-    opacity: .125;
+    opacity: 0.125;
     right: 10px;
     line-height: 9px;
-    font-size: .8em;
+    font-size: 0.8em;
     bottom: 51%;
     right: 0;
     content: "▲";
@@ -57,37 +54,33 @@
 .sorting::after {
     position: absolute;
     display: block;
-    opacity: .125;
+    opacity: 0.125;
     right: 10px;
     line-height: 9px;
-    font-size: .8em;
+    font-size: 0.8em;
     top: 51%;
     right: 0;
     content: "▼";
 }
 
-
-
-
 .sorting:sortingAsc::before {
-    opacity: .6;
+    opacity: 0.6;
 }
-
-/* .sorting:sortingDesc::before {
-    opacity: .6;
-}
-
 .sorting:sortingAsc::after {
-    opacity: .6;
-} */
-
-.sorting:sortingDesc::after {
-    opacity: .6;
+    opacity: 0.125;
 }
+.sorting:sortingDesc::after {
+    opacity: 0.6;
+}
+
+.sorting:sortingDesc::before {
+    opacity: 0.125;
+}
+
 
 
 .root > tbody > tr:nth-child(odd) {
-    box-shadow: inset 0 0 0 9999px rgb(0 0 0 / 2%)
+    box-shadow: inset 0 0 0 9999px rgb(0 0 0 / 2%);
 }
 
 .root > tbody > tr:nth-child(odd) > td:first-child {
@@ -95,7 +88,7 @@
 }
 
 .root > tbody > tr:hover > td:first-child {
-    box-shadow: inset 0 0 0 9999px rgb(0 0 0 / 8%)
+    box-shadow: inset 0 0 0 9999px rgb(0 0 0 / 8%);
 }
 
 .root > tbody > tr > td {
@@ -103,11 +96,11 @@
 }
 
 .root > tbody > tr:hover {
-    box-shadow: inset 0 0 0 9999px rgb(0 0 0 / 4%)
+    box-shadow: inset 0 0 0 9999px rgb(0 0 0 / 4%);
 }
 
 .root > tbody > tr > td:first-child {
-    box-shadow: inset 0 0 0 9999px rgb(0 0 0 / 2%)
+    box-shadow: inset 0 0 0 9999px rgb(0 0 0 / 2%);
 }
 
 /* .name {

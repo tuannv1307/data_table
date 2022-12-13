@@ -7,6 +7,20 @@ export type DataTables = {
   valueBtn?: string;
   disabled?: boolean;
   isSort?: boolean;
+  isShowASC: {
+    nameA: boolean;
+    positionA: boolean;
+    officeA: boolean;
+    extnA: boolean;
+    startDateA: boolean;
+  };
+  isShowDESC: {
+    nameD: boolean;
+    positionD: boolean;
+    officeD: boolean;
+    extnD: boolean;
+    startDateD: boolean;
+  };
 };
 
 export type Actions = {
@@ -15,7 +29,8 @@ export type Actions = {
   editDataTable: (state: any, action: any) => void;
   sortDesc: (state: any, action: any) => void;
   sortAsc: (state: any, action: any) => void;
-  changeSort: (state: any, action: any) => void;
+  changeIsSort: (state: any, action: any) => void;
+  changeIsShow: (state: any, action: any) => void;
 };
 
 const initialData: DataTables = {
@@ -24,6 +39,20 @@ const initialData: DataTables = {
   valueBtn: "1" || "2" || "3" || "4" || "5" || "6",
   disabled: false,
   isSort: false,
+  isShowASC: {
+    nameA: true,
+    positionA: false,
+    officeA: false,
+    extnA: false,
+    startDateA: false,
+  },
+  isShowDESC: {
+    nameD: false,
+    positionD: false,
+    officeD: false,
+    extnD: false,
+    startDateD: false,
+  },
 };
 
 export type TicTacToeActionPayload = {};
@@ -89,13 +118,51 @@ const dataTablesSlice = createSlice<DataTables, Actions>({
       state.data = _.cloneDeep(sort);
       state = _.cloneDeep(state);
     },
-    changeSort: (state, action) => {
+    changeIsSort: (state, action) => {
       const {
         payload: { isSort },
       } = action;
 
       state.isSort = !isSort;
       state.isSort = _.cloneDeep(state.isSort);
+      state = _.cloneDeep(state);
+    },
+    changeIsShow: (state, action) => {
+      const {
+        payload: {
+          isShowNameA,
+          isShowPositionA,
+          isShowOfficeA,
+          isShowExtnA,
+          isShowStartDateA,
+        },
+      } = action;
+      const showA = {
+        nameA: isShowNameA,
+        positionA: isShowPositionA,
+        officeA: isShowOfficeA,
+        extnA: isShowExtnA,
+        startDateA: isShowStartDateA,
+      };
+      const {
+        payload: {
+          isShowNameD,
+          isShowPositionD,
+          isShowOfficeD,
+          isShowExtnD,
+          isShowStartDateD,
+        },
+      } = action;
+      const showD = {
+        nameD: isShowNameD,
+        positionD: isShowPositionD,
+        officeD: isShowOfficeD,
+        extnD: isShowExtnD,
+        startDateD: isShowStartDateD,
+      };
+      state.isShowASC = showA;
+      state.isShowDESC = showD;
+      state.isShowASC = _.cloneDeep(state.isShowASC);
       state = _.cloneDeep(state);
     },
   },
@@ -108,7 +175,8 @@ export const {
   editDataTable,
   sortDesc,
   sortAsc,
-  changeSort,
+  changeIsSort,
+  changeIsShow,
 } = dataTablesSlice.actions;
 
 export default dataTablesSlice.reducer;

@@ -50,6 +50,9 @@
 .inputEdit {
     width: 100%;
     outline: none;
+    padding: 5px;
+    font-size: initial;
+   
 }
 
 
