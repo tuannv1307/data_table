@@ -17,7 +17,7 @@ export type DataTablesProps = {
 const DataTables = ({ dataTable }: DataTablesProps) => {
   const data = useSelector((state: any) => state.datatable);
   // const [isShow, setIsShow] = useState(false);
-
+  let isSorted = data?.isSort;
   const dispatch = useDispatch();
 
   // useEffect(() => {
@@ -38,7 +38,7 @@ const DataTables = ({ dataTable }: DataTablesProps) => {
   // console.log(handleClickSortDesc(type))
 
   const handleClickIsSort = (type: string) => {
-    const isSort = data?.isSort;
+    const isSort = isSorted;
     const nameSort = type;
     dispatch(changeSort({ isSort }));
     if (isSort) {
@@ -53,7 +53,10 @@ const DataTables = ({ dataTable }: DataTablesProps) => {
       <thead>
         <tr>
           <th
-            className={st(classes.name, classes.sorting)}
+            className={st(classes.sorting, {
+              sortingAsc: isSorted,
+              sortingDesc: isSorted,
+            })}
             onClick={() => handleClickIsSort("name")}
           >
             Name
