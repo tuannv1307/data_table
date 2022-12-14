@@ -23,8 +23,8 @@ const DataTable = ({
   salary,
   id,
 }: DataTableProps) => {
-  const [isShowClick, setIsShowClick] = useState(false);
-  const [isShowDoubleClick, setIsShowDoubleClick] = useState(false);
+  const [isShowClick, setIsShowClick] = useState<boolean>(false);
+  const [isShowDoubleClick, setIsShowDoubleClick] = useState<boolean>(false);
   const [inputEditData, setInputEditData] = useState<{
     nameI?: string;
     positionI?: string;
@@ -40,17 +40,28 @@ const DataTable = ({
     start_dateI: start_date,
     salaryI: salary,
   });
-  let { nameI, positionI, officeI, extnI, start_dateI, salaryI } =
-    inputEditData;
+
+  let { nameI, positionI, officeI, extnI, start_dateI } = inputEditData;
+
   const dispatch = useDispatch();
 
+  let timer = 0;
+  let delay = 200;
+  let prevent = false;
+
   const handleClickShow = () => {
-    setIsShowClick(!isShowClick);
+    timer = setTimeout(() => {
+      if (!prevent) {
+        setIsShowClick(!isShowClick);
+      }
+      prevent = false;
+    }, delay);
   };
+
   const handleDoubleCliclEdit = () => {
-    setTimeout(() => {
-      setIsShowDoubleClick(!isShowDoubleClick);
-    }, 200);
+    clearTimeout(timer);
+    prevent = true;
+    setIsShowDoubleClick(!isShowDoubleClick);
   };
 
   const hanldeChangeInputEdit = (e: ChangeEvent<HTMLInputElement>) => {
@@ -92,7 +103,8 @@ const DataTable = ({
                 autoFocus
                 className={st(classes.inputEdit)}
                 onKeyDown={handleKeyDow}
-                onBlur={handleBlurEdit}
+                // onBlur={handleBlurEdit}
+                data-hook="input-edit"
               />
             </td>
             <td>
@@ -103,7 +115,8 @@ const DataTable = ({
                 name="positionI"
                 className={st(classes.inputEdit)}
                 onKeyDown={handleKeyDow}
-                onBlur={handleBlurEdit}
+                //  onBlur={handleBlurEdit}
+                data-hook="input-edit"
               />
             </td>
             <td>
@@ -114,7 +127,8 @@ const DataTable = ({
                 name="officeI"
                 className={st(classes.inputEdit)}
                 onKeyDown={handleKeyDow}
-                onBlur={handleBlurEdit}
+                //   onBlur={handleBlurEdit}
+                data-hook="input-edit"
               />
             </td>
             <td>
@@ -125,7 +139,8 @@ const DataTable = ({
                 name="extnI"
                 className={st(classes.inputEdit)}
                 onKeyDown={handleKeyDow}
-                onBlur={handleBlurEdit}
+                //  onBlur={handleBlurEdit}
+                data-hook="input-edit"
               />
             </td>
             <td>
@@ -136,17 +151,11 @@ const DataTable = ({
                 name="start_dateI"
                 className={st(classes.inputEdit)}
                 onKeyDown={handleKeyDow}
-                onBlur={handleBlurEdit}
+                // onBlur={handleBlurEdit}
+                data-hook="input-edit"
               />
             </td>
           </tr>
-          {/* <tr className={st(classes.trBtnSave)}>
-            <td colSpan={5}>
-              <button onClick={hanldeSubmitEditData} onKeyDown={handleKeyDow}>
-                Save
-              </button>
-            </td>
-          </tr> */}
         </>
       ) : (
         <>
@@ -155,6 +164,7 @@ const DataTable = ({
               className={st(classes.dtrControl)}
               onClick={handleClickShow}
               onDoubleClick={handleDoubleCliclEdit}
+              data-hook="dtrControl"
             >
               {name}
             </td>

@@ -1,8 +1,7 @@
 import _ from "lodash";
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  changeIsShow,
+  Data_Tables,
   changeIsSort,
   sortAsc,
   sortDesc,
@@ -20,12 +19,18 @@ export type DataTablesProps = {
     salary?: string;
   }[];
 };
+
 const DataTables = ({ dataTable }: DataTablesProps) => {
-  const data = useSelector((state: any) => state.datatable);
+  const data: Data_Tables = useSelector(
+    (state: { datatable: Data_Tables }) => state.datatable
+  );
 
   let isSorted = data?.isSort;
-  let isShowA = data?.isShowASC;
-  let isShowD = data?.isShowDESC;
+
+  let sortName = data?.sortName;
+
+  // let isShowD = data?.isShowDESC;
+
   const dispatch = useDispatch();
 
   const handleClickIsSort = (type: string) => {
@@ -37,190 +42,73 @@ const DataTables = ({ dataTable }: DataTablesProps) => {
     } else {
       dispatch(sortDesc({ nameSort }));
     }
-    if (type === "name") {
-      const isShowNameA = !isShowA?.nameA;
-      const isShowPositionA = false;
-      const isShowOfficeA = false;
-      const isShowExtnA = false;
-      const isShowStartDateA = false;
-      const isShowNameD = isShowA?.nameA;
-      const isShowPositionD = false;
-      const isShowOfficeD = false;
-      const isShowExtnD = false;
-      const isShowStartDateD = false;
-      dispatch(
-        changeIsShow({
-          isShowNameA,
-          isShowPositionA,
-          isShowOfficeA,
-          isShowExtnA,
-          isShowStartDateA,
-          isShowNameD,
-          isShowPositionD,
-          isShowOfficeD,
-          isShowExtnD,
-          isShowStartDateD,
-        })
-      );
-    } else if (type === "position") {
-      isSorted = false;
-      const isShowNameA = false;
-      const isShowPositionA = !isShowA?.positionA;
-      const isShowOfficeA = false;
-      const isShowExtnA = false;
-      const isShowStartDateA = false;
-      const isShowNameD = false;
-      const isShowPositionD = isShowA?.positionA;
-      const isShowOfficeD = false;
-      const isShowExtnD = false;
-      const isShowStartDateD = false;
-      dispatch(
-        changeIsShow({
-          isShowNameA,
-          isShowPositionA,
-          isShowOfficeA,
-          isShowExtnA,
-          isShowStartDateA,
-          isShowNameD,
-          isShowPositionD,
-          isShowOfficeD,
-          isShowExtnD,
-          isShowStartDateD,
-        })
-      );
-    } else if (type === "office") {
-      const isShowNameA = false;
-      const isShowPositionA = false;
-      const isShowOfficeA = !isShowA?.officeA;
-      const isShowExtnA = false;
-      const isShowStartDateA = false;
-      const isShowNameD = false;
-      const isShowPositionD = false;
-      const isShowOfficeD = isShowA?.officeA;
-      const isShowExtnD = false;
-      const isShowStartDateD = false;
-      dispatch(
-        changeIsShow({
-          isShowNameA,
-          isShowPositionA,
-          isShowOfficeA,
-          isShowExtnA,
-          isShowStartDateA,
-          isShowNameD,
-          isShowPositionD,
-          isShowOfficeD,
-          isShowExtnD,
-          isShowStartDateD,
-        })
-      );
-    } else if (type === "extn") {
-      const isShowNameA = false;
-      const isShowPositionA = false;
-      const isShowOfficeA = false;
-      const isShowExtnA = !isShowA?.extnA;
-      const isShowStartDateA = false;
-      const isShowNameD = false;
-      const isShowPositionD = false;
-      const isShowOfficeD = false;
-      const isShowExtnD = isShowA?.extnA;
-      const isShowStartDateD = false;
-      dispatch(
-        changeIsShow({
-          isShowNameA,
-          isShowPositionA,
-          isShowOfficeA,
-          isShowExtnA,
-          isShowStartDateA,
-          isShowNameD,
-          isShowPositionD,
-          isShowOfficeD,
-          isShowExtnD,
-          isShowStartDateD,
-        })
-      );
-    } else {
-      const isShowNameA = false;
-      const isShowPositionA = false;
-      const isShowOfficeA = false;
-      const isShowExtnA = false;
-      const isShowStartDateA = !isShowA?.startDateA;
-      const isShowNameD = false;
-      const isShowPositionD = false;
-      const isShowOfficeD = false;
-      const isShowExtnD = false;
-      const isShowStartDateD = isShowA?.startDateA;
-      dispatch(
-        changeIsShow({
-          isShowNameA,
-          isShowPositionA,
-          isShowOfficeA,
-          isShowExtnA,
-          isShowStartDateA,
-          isShowNameD,
-          isShowPositionD,
-          isShowOfficeD,
-          isShowExtnD,
-          isShowStartDateD,
-        })
-      );
-    }
   };
 
+  const handleChangeClassNameSort = (type: string) => sortName === type;
+
   return (
-    <table id="example" className={st(classes.root)}>
+    <table id="example" className={st(classes.root, { isSorted })}>
       <thead>
         <tr>
           <th
             className={st(classes.sorting, {
-              sortingAsc: isShowA?.nameA,
-              sortingDesc: isShowD?.nameD,
+              sortingName: handleChangeClassNameSort("name"),
             })}
             onClick={() => handleClickIsSort("name")}
+            data-hook="sorting"
           >
             Name
           </th>
           <th
             className={st(classes.sorting, {
-              sortingAsc: isShowA?.positionA,
-              sortingDesc: isShowD?.positionD,
+              sortingName: handleChangeClassNameSort("position"),
             })}
             onClick={() => handleClickIsSort("position")}
+            data-hook="sorting"
           >
             Position
           </th>
           <th
             className={st(classes.sorting, {
-              sortingAsc: isShowA?.officeA,
-              sortingDesc: isShowD?.officeD,
+              sortingName: handleChangeClassNameSort("office"),
             })}
             onClick={() => handleClickIsSort("office")}
+            data-hook="sorting"
           >
             Office
           </th>
           <th
             className={st(classes.sorting, {
-              sortingAsc: isShowA?.extnA,
-              sortingDesc: isShowD?.extnD,
+              sortingName: handleChangeClassNameSort("extn"),
             })}
             onClick={() => handleClickIsSort("extn")}
+            data-hook="sorting"
           >
             Extn.
           </th>
           <th
             className={st(classes.sorting, {
-              sortingAsc: isShowA?.startDateA,
-              sortingDesc: isShowD?.startDateD,
+              sortingName: handleChangeClassNameSort("start_date"),
             })}
             onClick={() => handleClickIsSort("start_date")}
+            data-hook="sorting"
           >
             Start date
           </th>
         </tr>
       </thead>
       <tbody>
-        {_.map(dataTable, (dataT, index) => (
-          <DataTable {...dataT} key={index} />
-        ))}
+        {dataTable && dataTable?.length > 0 ? (
+          _.map(dataTable, (dataT, index) => (
+            <DataTable {...dataT} key={index} />
+          ))
+        ) : (
+          <tr>
+            <td className={st(classes.notFound)} colSpan={5}>
+              No data found, please try again!
+            </td>
+          </tr>
+        )}
       </tbody>
       <tfoot>
         <tr>

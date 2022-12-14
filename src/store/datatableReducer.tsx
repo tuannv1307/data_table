@@ -1,73 +1,120 @@
-import { createSlice, current, type PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import _ from "lodash";
 
-export type DataTables = {
-  data?: [];
-  sizeData?: string;
+export type Data_Tables = {
+  data: {
+    id?: string;
+    name?: string;
+    position?: string;
+    office?: string;
+    extn?: string;
+    salary?: string;
+    start_date?: string;
+  }[];
+  sizeData: number;
   valueBtn?: string;
-  disabled?: boolean;
+  disabledPrev?: boolean;
+  disabledNext?: boolean;
   isSort?: boolean;
-  isShowASC: {
-    nameA: boolean;
-    positionA: boolean;
-    officeA: boolean;
-    extnA: boolean;
-    startDateA: boolean;
-  };
-  isShowDESC: {
-    nameD: boolean;
-    positionD: boolean;
-    officeD: boolean;
-    extnD: boolean;
-    startDateD: boolean;
-  };
+  sortName: string;
+
+  currentPage: number;
+  totalPages: number;
+  arrBtnPage: number[];
+  limitBtn: number;
+  typeArr: string;
+  searchDataTable: string;
 };
 
 export type Actions = {
-  getData: (state: any, action: any) => void;
-  showDataTable: (state: any, action: any) => void;
-  editDataTable: (state: any, action: any) => void;
-  sortDesc: (state: any, action: any) => void;
-  sortAsc: (state: any, action: any) => void;
-  changeIsSort: (state: any, action: any) => void;
-  changeIsShow: (state: any, action: any) => void;
+  getData: (
+    state: Data_Tables,
+    action: PayloadAction<
+      {
+        id?: string;
+        name?: string;
+        position?: string;
+        office?: string;
+        extn?: string;
+        salary?: string;
+        start_date?: string;
+      }[]
+    >
+  ) => void;
+
+  showDataTable: (state: Data_Tables, action: PayloadAction<number>) => void;
+
+  editDataTable: (
+    state: Data_Tables,
+    action: PayloadAction<{
+      id?: string;
+      nameI?: string;
+      positionI?: string;
+      officeI?: string;
+      extnI?: string;
+      start_dateI?: string;
+    }>
+  ) => void;
+
+  sortDesc: (
+    state: Data_Tables,
+    action: PayloadAction<{ nameSort: string }>
+  ) => void;
+
+  sortAsc: (
+    state: Data_Tables,
+    action: PayloadAction<{ nameSort: string }>
+  ) => void;
+
+  changeIsSort: (
+    state: Data_Tables,
+    action: PayloadAction<{ isSort?: boolean }>
+  ) => void;
+
+  setCurrentPage: (
+    state: Data_Tables,
+    action: PayloadAction<{ currentPage: number }>
+  ) => void;
+
+  searchData: (
+    state: Data_Tables,
+    action: PayloadAction<{ searchDataTable: string }>
+  ) => void;
 };
 
-const initialData: DataTables = {
+const initialData: Data_Tables = {
   data: [],
-  sizeData: "10",
-  valueBtn: "1" || "2" || "3" || "4" || "5" || "6",
-  disabled: false,
+  sizeData: 10,
+  disabledPrev: false,
+  disabledNext: false,
   isSort: false,
-  isShowASC: {
-    nameA: true,
-    positionA: false,
-    officeA: false,
-    extnA: false,
-    startDateA: false,
-  },
-  isShowDESC: {
-    nameD: false,
-    positionD: false,
-    officeD: false,
-    extnD: false,
-    startDateD: false,
-  },
+  sortName: "name",
+
+  currentPage: 1,
+  totalPages: 6,
+  arrBtnPage: [],
+  limitBtn: 6,
+  typeArr: "DATA_SET_LENGTH",
+  searchDataTable: "",
 };
 
 export type TicTacToeActionPayload = {};
 
-const dataTablesSlice = createSlice<DataTables, Actions>({
+const dataTablesSlice = createSlice<Data_Tables, Actions>({
   name: "datatable",
-  initialState: initialData as DataTables,
+  initialState: initialData as Data_Tables,
   reducers: {
     getData: (state, action) => {
       const datas = action.payload;
-      state.sizeData = "10";
       state.data = datas;
-      state.valueBtn = "1";
-      state.disabled = state.valueBtn === "1" ? true : false;
+      state.disabledPrev = state.currentPage === 1 ? true : false;
+      state.disabledNext = state.currentPage === state.limitBtn ? true : false;
       const sort = _.sortBy(state.data, ["name"]);
+      const arrPages = [];
+      for (let index = 1; index <= state.limitBtn; index++) {
+        arrPages.push(index);
+      }
+      state.arrBtnPage = _.cloneDeep(arrPages);
       state.data = _.cloneDeep(sort);
       state.data = _.cloneDeep(state.data);
       state = _.cloneDeep(state);
@@ -76,6 +123,21 @@ const dataTablesSlice = createSlice<DataTables, Actions>({
     showDataTable: (state, action) => {
       let size = action.payload;
       state.sizeData = _.cloneDeep(size);
+      const beforeNumber = state.data.length / state.sizeData;
+      var valueLimit = parseInt(beforeNumber.toString().split(".")[0]);
+      state.limitBtn = valueLimit + 1;
+      const arrPages = [];
+      for (let index = 1; index <= state.limitBtn; index++) {
+        arrPages.push(index);
+      }
+      state.currentPage = 1;
+      state.disabledPrev = state.currentPage === 1 ? true : false;
+      state.disabledNext = state.currentPage === state.limitBtn ? true : false;
+      state.limitBtn = _.cloneDeep(state.limitBtn);
+      state.arrBtnPage = _.cloneDeep(arrPages);
+      state.arrBtnPage = _.cloneDeep(state.arrBtnPage);
+      state.typeArr = "DATA_SET_LENGTH";
+      state = _.cloneDeep(state);
     },
 
     editDataTable: (state, action) => {
@@ -83,7 +145,7 @@ const dataTablesSlice = createSlice<DataTables, Actions>({
         payload: { id, nameI, positionI, officeI, extnI, start_dateI },
       } = action;
       if (id) {
-        const newData = state.data.map((item: any) =>
+        const newData = state.data.map((item) =>
           item.id === id
             ? {
                 ...item,
@@ -95,7 +157,6 @@ const dataTablesSlice = createSlice<DataTables, Actions>({
               }
             : item
         );
-
         state.data = _.cloneDeep(newData);
       }
     },
@@ -106,6 +167,8 @@ const dataTablesSlice = createSlice<DataTables, Actions>({
       } = action;
       let sort = _.sortBy(state.data, [nameSort]);
       sort = _.reverse(sort);
+      state.sortName = nameSort;
+      state.sortName = _.cloneDeep(state.sortName);
       state.data = _.cloneDeep(sort);
       state = _.cloneDeep(state);
     },
@@ -115,54 +178,38 @@ const dataTablesSlice = createSlice<DataTables, Actions>({
         payload: { nameSort },
       } = action;
       const sort = _.sortBy(state.data, [nameSort]);
+      state.sortName = nameSort;
+      state.sortName = _.cloneDeep(state.sortName);
       state.data = _.cloneDeep(sort);
       state = _.cloneDeep(state);
     },
+
     changeIsSort: (state, action) => {
       const {
         payload: { isSort },
       } = action;
-
       state.isSort = !isSort;
       state.isSort = _.cloneDeep(state.isSort);
       state = _.cloneDeep(state);
     },
-    changeIsShow: (state, action) => {
+
+    setCurrentPage: (state, action) => {
       const {
-        payload: {
-          isShowNameA,
-          isShowPositionA,
-          isShowOfficeA,
-          isShowExtnA,
-          isShowStartDateA,
-        },
+        payload: { currentPage },
       } = action;
-      const showA = {
-        nameA: isShowNameA,
-        positionA: isShowPositionA,
-        officeA: isShowOfficeA,
-        extnA: isShowExtnA,
-        startDateA: isShowStartDateA,
-      };
+      state.currentPage = currentPage;
+      state.disabledPrev = state.currentPage === 1 ? true : false;
+      state.disabledNext = state.currentPage === state.limitBtn ? true : false;
+      state.currentPage = _.cloneDeep(state.currentPage);
+      state.typeArr = "DATA_SET_PAGINATE";
+      state = _.cloneDeep(state);
+    },
+    searchData: (state, action) => {
       const {
-        payload: {
-          isShowNameD,
-          isShowPositionD,
-          isShowOfficeD,
-          isShowExtnD,
-          isShowStartDateD,
-        },
+        payload: { searchDataTable },
       } = action;
-      const showD = {
-        nameD: isShowNameD,
-        positionD: isShowPositionD,
-        officeD: isShowOfficeD,
-        extnD: isShowExtnD,
-        startDateD: isShowStartDateD,
-      };
-      state.isShowASC = showA;
-      state.isShowDESC = showD;
-      state.isShowASC = _.cloneDeep(state.isShowASC);
+      state.searchDataTable = searchDataTable;
+      state.searchDataTable = _.cloneDeep(state.searchDataTable);
       state = _.cloneDeep(state);
     },
   },
@@ -176,7 +223,8 @@ export const {
   sortDesc,
   sortAsc,
   changeIsSort,
-  changeIsShow,
+  setCurrentPage,
+  searchData,
 } = dataTablesSlice.actions;
 
 export default dataTablesSlice.reducer;

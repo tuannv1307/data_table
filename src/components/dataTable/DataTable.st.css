@@ -1,5 +1,6 @@
 .root {
     -st-states: isShowClick;
+    display: table-row;
 }
 
 .dtrControl {
@@ -52,7 +53,7 @@
     outline: none;
     padding: 5px;
     font-size: initial;
-   
+
 }
 
 
