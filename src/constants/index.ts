@@ -7,6 +7,7 @@ export const dataSet = [
     start_date: "2011/04/25",
     office: "Edinburgh",
     extn: "5421",
+    isShowSalary: false,
   },
   {
     id: "2",
@@ -16,6 +17,7 @@ export const dataSet = [
     start_date: "2011/07/25",
     office: "Tokyo",
     extn: "8422",
+    isShowSalary: false,
   },
   {
     id: "3",
@@ -25,6 +27,7 @@ export const dataSet = [
     start_date: "2009/01/12",
     office: "San Francisco",
     extn: "1562",
+    isShowSalary: false,
   },
   {
     id: "4",
@@ -34,6 +37,7 @@ export const dataSet = [
     start_date: "2012/03/29",
     office: "Edinburgh",
     extn: "6224",
+    isShowSalary: false,
   },
   {
     id: "5",
@@ -43,6 +47,7 @@ export const dataSet = [
     start_date: "2008/11/28",
     office: "Tokyo",
     extn: "5407",
+    isShowSalary: false,
   },
   {
     id: "6",
@@ -52,6 +57,7 @@ export const dataSet = [
     start_date: "2012/12/02",
     office: "New York",
     extn: "4804",
+    isShowSalary: false,
   },
   {
     id: "7",
@@ -61,6 +67,7 @@ export const dataSet = [
     start_date: "2012/08/06",
     office: "San Francisco",
     extn: "9608",
+    isShowSalary: false,
   },
   {
     id: "8",
@@ -70,6 +77,7 @@ export const dataSet = [
     start_date: "2010/10/14",
     office: "Tokyo",
     extn: "6200",
+    isShowSalary: false,
   },
   {
     id: "9",
@@ -79,6 +87,7 @@ export const dataSet = [
     start_date: "2009/09/15",
     office: "San Francisco",
     extn: "2360",
+    isShowSalary: false,
   },
   {
     id: "10",
@@ -88,6 +97,7 @@ export const dataSet = [
     start_date: "2008/12/13",
     office: "Edinburgh",
     extn: "1667",
+    isShowSalary: false,
   },
   {
     id: "11",
@@ -97,6 +107,7 @@ export const dataSet = [
     start_date: "2008/12/19",
     office: "London",
     extn: "3814",
+    isShowSalary: false,
   },
   {
     id: "12",
@@ -106,6 +117,7 @@ export const dataSet = [
     start_date: "2013/03/03",
     office: "Edinburgh",
     extn: "9497",
+    isShowSalary: false,
   },
   {
     id: "13",
@@ -115,6 +127,7 @@ export const dataSet = [
     start_date: "2008/10/16",
     office: "San Francisco",
     extn: "6741",
+    isShowSalary: false,
   },
   {
     id: "14",
@@ -124,6 +137,7 @@ export const dataSet = [
     start_date: "2012/12/18",
     office: "London",
     extn: "3597",
+    isShowSalary: false,
   },
   {
     id: "15",
@@ -133,6 +147,7 @@ export const dataSet = [
     start_date: "2010/03/17",
     office: "London",
     extn: "1965",
+    isShowSalary: false,
   },
   {
     id: "16",
@@ -142,6 +157,7 @@ export const dataSet = [
     start_date: "2012/11/27",
     office: "London",
     extn: "1581",
+    isShowSalary: false,
   },
   {
     id: "17",
@@ -151,6 +167,7 @@ export const dataSet = [
     start_date: "2010/06/09",
     office: "New York",
     extn: "3059",
+    isShowSalary: false,
   },
   {
     id: "18",
@@ -160,6 +177,7 @@ export const dataSet = [
     start_date: "2009/04/10",
     office: "New York",
     extn: "1721",
+    isShowSalary: false,
   },
   {
     id: "19",
@@ -169,6 +187,7 @@ export const dataSet = [
     start_date: "2012/10/13",
     office: "London",
     extn: "2558",
+    isShowSalary: false,
   },
   {
     id: "20",
@@ -178,6 +197,7 @@ export const dataSet = [
     start_date: "2012/09/26",
     office: "Edinburgh",
     extn: "2290",
+    isShowSalary: false,
   },
   {
     id: "21",
@@ -187,6 +207,7 @@ export const dataSet = [
     start_date: "2011/09/03",
     office: "New York",
     extn: "1937",
+    isShowSalary: false,
   },
   {
     id: "22",
@@ -196,6 +217,7 @@ export const dataSet = [
     start_date: "2009/06/25",
     office: "New York",
     extn: "6154",
+    isShowSalary: false,
   },
   {
     id: "23",
@@ -205,6 +227,7 @@ export const dataSet = [
     start_date: "2011/12/12",
     office: "New York",
     extn: "8330",
+    isShowSalary: false,
   },
   {
     id: "24",
@@ -214,6 +237,7 @@ export const dataSet = [
     start_date: "2010/09/20",
     office: "Sydney",
     extn: "3023",
+    isShowSalary: false,
   },
   {
     id: "25",
@@ -223,6 +247,7 @@ export const dataSet = [
     start_date: "2009/10/09",
     office: "London",
     extn: "5797",
+    isShowSalary: false,
   },
   {
     id: "26",
@@ -232,6 +257,7 @@ export const dataSet = [
     start_date: "2010/12/22",
     office: "Edinburgh",
     extn: "8822",
+    isShowSalary: false,
   },
   {
     id: "27",
@@ -241,6 +267,7 @@ export const dataSet = [
     start_date: "2010/11/14",
     office: "Singapore",
     extn: "9239",
+    isShowSalary: false,
   },
   {
     id: "28",
@@ -250,6 +277,7 @@ export const dataSet = [
     start_date: "2011/06/07",
     office: "San Francisco",
     extn: "1314",
+    isShowSalary: false,
   },
   {
     id: "29",
@@ -259,6 +287,7 @@ export const dataSet = [
     start_date: "2010/03/11",
     office: "San Francisco",
     extn: "2947",
+    isShowSalary: false,
   },
   {
     id: "30",
@@ -268,6 +297,7 @@ export const dataSet = [
     start_date: "2011/08/14",
     office: "Tokyo",
     extn: "8899",
+    isShowSalary: false,
   },
   {
     id: "31",
@@ -277,6 +307,7 @@ export const dataSet = [
     start_date: "2011/06/02",
     office: "Sydney",
     extn: "2769",
+    isShowSalary: false,
   },
   {
     id: "32",
@@ -286,6 +317,7 @@ export const dataSet = [
     start_date: "2009/10/22",
     office: "London",
     extn: "6832",
+    isShowSalary: false,
   },
   {
     id: "33",
@@ -295,6 +327,7 @@ export const dataSet = [
     start_date: "2011/05/07",
     office: "London",
     extn: "3606",
+    isShowSalary: false,
   },
   {
     id: "34",
@@ -304,6 +337,7 @@ export const dataSet = [
     start_date: "2008/10/26",
     office: "San Francisco",
     extn: "2860",
+    isShowSalary: false,
   },
   {
     id: "35",
@@ -313,6 +347,7 @@ export const dataSet = [
     start_date: "2011/03/09",
     office: "Edinburgh",
     extn: "8240",
+    isShowSalary: false,
   },
   {
     id: "36",
@@ -322,6 +357,7 @@ export const dataSet = [
     start_date: "2009/12/09",
     office: "San Francisco",
     extn: "5384",
+    isShowSalary: false,
   },
   {
     id: "37",
@@ -331,6 +367,7 @@ export const dataSet = [
     start_date: "2008/12/16",
     office: "San Francisco",
     extn: "7031",
+    isShowSalary: false,
   },
   {
     id: "38",
@@ -340,6 +377,7 @@ export const dataSet = [
     start_date: "2010/02/12",
     office: "San Francisco",
     extn: "6318",
+    isShowSalary: false,
   },
   {
     id: "39",
@@ -349,6 +387,7 @@ export const dataSet = [
     start_date: "2009/02/14",
     office: "San Francisco",
     extn: "9422",
+    isShowSalary: false,
   },
   {
     id: "40",
@@ -358,6 +397,7 @@ export const dataSet = [
     start_date: "2008/12/11",
     office: "London",
     extn: "7580",
+    isShowSalary: false,
   },
   {
     id: "41",
@@ -367,6 +407,7 @@ export const dataSet = [
     start_date: "2008/09/26",
     office: "New York",
     extn: "1042",
+    isShowSalary: false,
   },
   {
     id: "42",
@@ -376,6 +417,7 @@ export const dataSet = [
     start_date: "2011/02/03",
     office: "Singapore",
     extn: "2120",
+    isShowSalary: false,
   },
   {
     id: "43",
@@ -385,6 +427,7 @@ export const dataSet = [
     start_date: "2011/05/03",
     office: "London",
     extn: "6222",
+    isShowSalary: false,
   },
   {
     id: "44",
@@ -394,6 +437,7 @@ export const dataSet = [
     start_date: "2009/08/19",
     office: "Tokyo",
     extn: "9383",
+    isShowSalary: false,
   },
   {
     id: "45",
@@ -403,6 +447,7 @@ export const dataSet = [
     start_date: "2013/08/11",
     office: "New York",
     extn: "8327",
+    isShowSalary: false,
   },
   {
     id: "46",
@@ -412,6 +457,7 @@ export const dataSet = [
     start_date: "2009/07/07",
     office: "San Francisco",
     extn: "2927",
+    isShowSalary: false,
   },
   {
     id: "47",
@@ -421,6 +467,7 @@ export const dataSet = [
     start_date: "2012/04/09",
     office: "Singapore",
     extn: "8352",
+    isShowSalary: false,
   },
   {
     id: "48",
@@ -430,6 +477,7 @@ export const dataSet = [
     start_date: "2010/01/04",
     office: "New York",
     extn: "7439",
+    isShowSalary: false,
   },
   {
     id: "49",
@@ -439,6 +487,7 @@ export const dataSet = [
     start_date: "2012/06/01",
     office: "San Francisco",
     extn: "4389",
+    isShowSalary: false,
   },
   {
     id: "50",
@@ -448,6 +497,7 @@ export const dataSet = [
     start_date: "2013/02/01",
     office: "Edinburgh",
     extn: "3431",
+    isShowSalary: false,
   },
   {
     id: "51",
@@ -457,6 +507,7 @@ export const dataSet = [
     start_date: "2011/12/06",
     office: "New York",
     extn: "3990",
+    isShowSalary: false,
   },
   {
     id: "52",
@@ -466,6 +517,7 @@ export const dataSet = [
     start_date: "2011/03/21",
     office: "London",
     extn: "1016",
+    isShowSalary: false,
   },
   {
     id: "53",
@@ -475,6 +527,7 @@ export const dataSet = [
     start_date: "2009/02/27",
     office: "London",
     extn: "6733",
+    isShowSalary: false,
   },
   {
     id: "54",
@@ -484,6 +537,7 @@ export const dataSet = [
     start_date: "2010/07/14",
     office: "San Francisco",
     extn: "8196",
+    isShowSalary: false,
   },
   {
     id: "55",
@@ -493,6 +547,7 @@ export const dataSet = [
     start_date: "2008/11/13",
     office: "Edinburgh",
     extn: "6373",
+    isShowSalary: false,
   },
   {
     id: "56",
@@ -502,6 +557,7 @@ export const dataSet = [
     start_date: "2011/06/27",
     office: "Singapore",
     extn: "5384",
+    isShowSalary: false,
   },
   {
     id: "57",
@@ -511,5 +567,6 @@ export const dataSet = [
     start_date: "2011/01/25",
     office: "New York",
     extn: "4226",
+    isShowSalary: false,
   },
 ];

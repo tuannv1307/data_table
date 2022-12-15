@@ -5,6 +5,7 @@ import {
   changeIsSort,
   sortAsc,
   sortDesc,
+  changeName,
 } from "../../store/datatableReducer";
 import DataTable from "../dataTable";
 import { st, classes } from "./DataTables.st.css";
@@ -36,6 +37,7 @@ const DataTables = ({ dataTable }: DataTablesProps) => {
   const handleClickIsSort = (type: string) => {
     const isSort = isSorted;
     const nameSort = type;
+    dispatch(changeName({ nameSort }));
     dispatch(changeIsSort({ isSort }));
     if (isSort) {
       dispatch(sortAsc({ nameSort }));

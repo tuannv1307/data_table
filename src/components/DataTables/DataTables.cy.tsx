@@ -3,7 +3,7 @@ import store from "../../store/store";
 import DataTables from "./DataTables";
 describe("App.cy.tsx", () => {
   // beforeEach(() => {
-  //   cy.wait(2000);
+  //   cy.wait(1000);
   // });
 
   it("is true", () => {
@@ -53,14 +53,15 @@ describe("App.cy.tsx", () => {
       </Provider>
     );
 
-    cy.get('[data-hook="sorting"]').eq(0).wait(2000).click().wait(2000).click();
-    cy.get('[data-hook="sorting"]').eq(1).wait(2000).click().wait(2000).click();
-    cy.get('[data-hook="sorting"]').eq(2).wait(2000).click().wait(2000).click();
-    cy.get('[data-hook="sorting"]').eq(3).wait(2000).click().wait(2000).click();
-    cy.get('[data-hook="sorting"]').eq(4).wait(2000).click().wait(2000).click();
+    cy.get('[data-hook="sorting"]').eq(0).wait(1000).click().wait(1000).click();
+    cy.get('[data-hook="sorting"]').eq(1).wait(1000).click().wait(1000).click();
+    cy.get('[data-hook="sorting"]').eq(2).wait(1000).click().wait(1000).click();
+    cy.get('[data-hook="sorting"]').eq(3).wait(1000).click().wait(1000).click();
+    cy.get('[data-hook="sorting"]').eq(4).wait(1000).click().wait(1000).click();
   });
   it("show mount with data", () => {
     cy.viewport("macbook-15");
+
     const dataTable = [
       {
         name: "abc",
@@ -87,6 +88,7 @@ describe("App.cy.tsx", () => {
         salary: "string",
       },
     ];
+
     cy.mount(
       <Provider store={store}>
         <DataTables dataTable={dataTable} />
@@ -95,15 +97,12 @@ describe("App.cy.tsx", () => {
 
     cy.get('[data-hook="dtrControl"]')
       .eq(0)
-      .wait(2000)
+      .wait(1000)
       .click()
-      .wait(2000)
+      .wait(1000)
       .click();
-
-    cy.get('[data-hook="dtrControl"]').eq(0).wait(2000).dblclick().wait(2000);
+    cy.get('[data-hook="dtrControl"]').eq(0).wait(1000).dblclick().wait(1000);
     cy.get('[data-hook="input-edit"]')
-      // .eq(0)
-      // .type("tuandaynha")
       .eq(1)
       .focus()
       .type("123tuan")

@@ -4,8 +4,6 @@ import { useDispatch } from "react-redux";
 import _ from "lodash";
 import store from "./store/store";
 import DataTables from "./components/DataTables";
-import { st, classes } from "./App.st.css";
-import "./globals.st.css";
 import {
   Data_Tables,
   getData,
@@ -14,6 +12,8 @@ import {
 } from "./store/datatableReducer";
 import { dataSet } from "./constants";
 import PaginatePage from "./components/PaginatePage/PaginatePage";
+import { st, classes } from "./App.st.css";
+import "./globals.st.css";
 
 const showDataLength = (
   arr: {
@@ -67,11 +67,6 @@ function App() {
     dispatch(showDataTable(_.toNumber(e.target.value)));
   };
 
-  const handleSearchData = (e: ChangeEvent<HTMLInputElement>) => {
-    searchDataTable = e.target.value;
-    dispatch(searchData({ searchDataTable }));
-  };
-
   dataTable = _.filter(dataTable, (data) => {
     return (
       (data.name &&
@@ -101,7 +96,11 @@ function App() {
           .indexOf(searchDataTable.toLowerCase()) > -1)
     );
   });
-  console.log(data);
+
+  const handleSearchData = (e: ChangeEvent<HTMLInputElement>) => {
+    searchDataTable = e.target.value;
+    dispatch(searchData({ searchDataTable }));
+  };
 
   return (
     <div className={st(classes.root)} data-hook="app">
@@ -130,7 +129,7 @@ function App() {
               type="search"
               className={st(classes.inputSearch)}
               placeholder=""
-              onInput={handleSearchData}
+              onChange={handleSearchData}
               data-hook="input-search"
             />
           </label>
@@ -142,7 +141,7 @@ function App() {
               : getPaginatedData(dataTable, currentPage, sizeData)
           }
         />
-        <PaginatePage />
+        <PaginatePage dataTable={dataTable} />
       </div>
     </div>
   );

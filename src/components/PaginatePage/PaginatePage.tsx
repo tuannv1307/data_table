@@ -1,24 +1,43 @@
 import _ from "lodash";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Data_Tables, setCurrentPage } from "../../store/datatableReducer";
+import {
+  Data_Tables,
+  setBtnPrevAndNext,
+  setCurrentPage,
+  setLimitPageData,
+} from "../../store/datatableReducer";
 
 import { st, classes } from "./PaginatePage.st.css";
 
-const PaginatePage = () => {
+export type PaginatePageProps = {
+  dataTable: {
+    id?: string | undefined;
+    name?: string | undefined;
+    position?: string | undefined;
+    office?: string | undefined;
+    extn?: string | undefined;
+    salary?: string | undefined;
+    start_date?: string | undefined;
+  }[];
+};
+
+const PaginatePage = ({ dataTable }: PaginatePageProps) => {
   const data: Data_Tables = useSelector(
     (state: { datatable: Data_Tables }) => state.datatable
   );
   const dispatch = useDispatch();
-  let dataTable = data?.data;
+
   const lengthData = dataTable?.length;
   const sizeData = data?.sizeData;
-  const disabledPrev = data?.disabledPrev;
-  const disabledNext = data?.disabledNext;
+  let disabledPrev = data?.disabledPrev;
+  let disabledNext = data?.disabledNext;
   let currentPage = data?.currentPage;
-  let arrBtnPage = data?.arrBtnPage;
+  let linitPageData = data?.linitPageData;
   let startIndex = currentPage * sizeData - sizeData;
   const endIndex = Math.min(startIndex + sizeData, lengthData);
-
+  linitPageData = _.size(dataTable) / sizeData;
+  linitPageData = Math.ceil(linitPageData);
   const handleClickBtn = (item: number) => {
     dispatch(setCurrentPage({ currentPage: item }));
   };
@@ -35,7 +54,7 @@ const PaginatePage = () => {
     }
     if (!disabledNext) {
       if (type === "NEXT") {
-        if (currentPage === 6) {
+        if (currentPage === linitPageData) {
           return;
         }
         currentPage = currentPage + 1;
@@ -44,10 +63,32 @@ const PaginatePage = () => {
     }
   };
 
+  useEffect(() => {
+    disabledPrev = currentPage === 1 ? true : false;
+    disabledNext =
+      currentPage === linitPageData ? true : false || linitPageData === 0;
+    dispatch(setBtnPrevAndNext({ disabledPrev, disabledNext }));
+  }, [currentPage, linitPageData]);
+
+  useEffect(() => {
+    dispatch(setLimitPageData({ linitPageData }));
+  }, [linitPageData]);
+
+  const arrBTN = [];
+  for (let index = 1; index <= linitPageData; index++) {
+    arrBTN.push(index);
+  }
+  console.log(data);
   return (
     <div className={st(classes.root)}>
       <div className={st(classes.dataTablesInfo)} data-hook="data-info">
-        Showing {startIndex + 1} to {endIndex} of {lengthData} entries
+        {dataTable?.length === data?.data?.length
+          ? `Showing ${startIndex + 1} to ${endIndex} of ${lengthData} entries `
+          : `Showing ${
+              dataTable.length > 0 ? startIndex + 1 : startIndex
+            } to ${lengthData} of ${lengthData} entries (filtered from ${
+              data?.data?.length
+            } total entries)`}
       </div>
       <div className={st(classes.dataTablesPaginate)}>
         <a
@@ -58,8 +99,8 @@ const PaginatePage = () => {
           Previous
         </a>
         <span>
-          {arrBtnPage &&
-            _.map(arrBtnPage, (item, index) => (
+          {arrBTN &&
+            _.map(arrBTN, (item, index) => (
               <a
                 className={st(classes.paginateButton, {
                   curentBtn: item === currentPage,

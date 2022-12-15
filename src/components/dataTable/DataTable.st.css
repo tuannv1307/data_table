@@ -1,5 +1,5 @@
 .root {
-    -st-states: isShowClick;
+    -st-states: isShowSalary;
     display: table-row;
 }
 
@@ -30,7 +30,7 @@
     background-color: #31b131;
 }
 
-.root:isShowClick > .dtrControl::before {
+.root:isShowSalary > .dtrControl::before {
     content: "-";
     background-color: #d33333;
 }
@@ -49,7 +49,7 @@
 
 
 .inputEdit {
-    width: 100%;
+
     outline: none;
     padding: 5px;
     font-size: initial;

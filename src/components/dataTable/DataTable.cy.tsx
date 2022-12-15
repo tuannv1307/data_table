@@ -4,7 +4,7 @@ import DataTable from "./DataTable";
 
 describe("App.cy.tsx", () => {
   // beforeEach(() => {
-  //   cy.wait(2000);
+  //   cy.wait(1000);
   // });
 
   it("is true", () => {
@@ -32,15 +32,14 @@ describe("App.cy.tsx", () => {
 
     cy.get('[data-hook="dtrControl"]')
       .eq(0)
-      .wait(2000)
+      .wait(1000)
       .click()
-      .wait(2000)
+      .wait(1000)
       .click();
 
-    cy.get('[data-hook="dtrControl"]').eq(0).wait(2000).dblclick().wait(2000);
+    cy.get('[data-hook="dtrControl"]').eq(0).wait(1000).dblclick().wait(1000);
     cy.get('[data-hook="input-edit"]')
-      // .eq(0)
-      // .type("tuandaynha")
+
       .eq(1)
       .focus()
       .type("123tuan")

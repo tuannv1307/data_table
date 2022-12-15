@@ -2,9 +2,20 @@ import { Provider } from "react-redux";
 import store from "../../store/store";
 import PaginatePage from "./PaginatePage";
 
+let dataTable = [
+  {
+    id: "1",
+    name: "daw",
+    position: "dawddaw2",
+    office: "ddawdaw",
+    extn: "ddadadawd",
+    start_date: "2001/12/31",
+  },
+];
+
 describe("App.cy.tsx", () => {
   // beforeEach(() => {
-  //   cy.wait(2000);
+  //   cy.wait(1000);
   // });
 
   it("is true", () => {
@@ -17,7 +28,7 @@ describe("App.cy.tsx", () => {
 
     cy.mount(
       <Provider store={store}>
-        <PaginatePage />
+        <PaginatePage dataTable={dataTable} />
       </Provider>
     );
   });
@@ -27,7 +38,7 @@ describe("App.cy.tsx", () => {
 
     cy.mount(
       <Provider store={store}>
-        <PaginatePage />
+        <PaginatePage dataTable={dataTable} />
       </Provider>
     );
 
@@ -39,7 +50,7 @@ describe("App.cy.tsx", () => {
 
     cy.mount(
       <Provider store={store}>
-        <PaginatePage />
+        <PaginatePage dataTable={dataTable} />
       </Provider>
     );
 
@@ -48,7 +59,9 @@ describe("App.cy.tsx", () => {
       .invoke("show")
       .trigger("click")
       .trigger("click");
-    cy.wait(2000);
+
+    cy.wait(1000);
+
     cy.get('[data-hook="next"]')
       .contains("Next")
       .invoke("show")
@@ -57,7 +70,9 @@ describe("App.cy.tsx", () => {
       .trigger("click")
       .trigger("click")
       .trigger("click");
-    cy.wait(2000);
+
+    cy.wait(1000);
+
     cy.get('[data-hook="previous"]')
       .contains("Previous")
       .invoke("show")
