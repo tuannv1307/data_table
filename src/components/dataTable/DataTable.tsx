@@ -1,4 +1,4 @@
-import { ChangeEvent, useState, KeyboardEvent } from "react";
+import { ChangeEvent, useState, KeyboardEvent, useRef, useEffect } from "react";
 import _ from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -11,7 +11,7 @@ import DatePicker from "react-datepicker";
 import "./datepicker.scss";
 import { st, classes } from "./DataTable.st.css";
 import moment from "moment";
-
+import OutsideClickHandler from "react-outside-click-handler";
 export type DataTableProps = {
   name?: string;
   position?: string;
@@ -20,7 +20,7 @@ export type DataTableProps = {
   start_date?: string;
   salary?: string;
   id?: string;
-  isShowSalary: boolean;
+  isShowSalary?: boolean;
 };
 
 const DataTable = ({
@@ -36,10 +36,10 @@ const DataTable = ({
   const data: Data_Tables = useSelector(
     (state: { datatable: Data_Tables }) => state.datatable
   );
-  // let isShowSalaryIndex = data?.isShowSalaryIndex;
+  const refOutsideClick = useRef<HTMLTableRowElement>();
   const [isShowClick, setIsShowClick] = useState<boolean>(false);
   const [isShowDoubleClick, setIsShowDoubleClick] = useState<boolean>(false);
-  const [startDate, setStartDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(moment(start_date).toDate());
   const [inputEditData, setInputEditData] = useState<{
     nameI?: string;
     positionI?: string;
@@ -64,27 +64,22 @@ const DataTable = ({
   const handleClickShow = (id?: string) => {
     timer = setTimeout(() => {
       if (!prevent) {
-        if (id) {
-          let isShowSalaryIndex = !isShowSalary;
-          setIsShowClick(!isShowClick);
-          dispatch(showSalary({ id, isShowSalaryIndex }));
-        }
+        let isShowSalaryIndex = !isShowSalary;
+        setIsShowClick(!isShowClick);
+        dispatch(showSalary({ id, isShowSalaryIndex }));
       }
       prevent = false;
     }, delay);
   };
 
-  const handleDoubleCliclEdit = (type: string, value?: string) => {
+  const handleDoubleCliclEdit = (type: string) => {
     const nameSort = type;
     dispatch(changeName({ nameSort }));
     clearTimeout(timer);
     prevent = true;
-    if (value === id) {
-      setIsShowDoubleClick(true);
-    } else {
-      setIsShowDoubleClick(false);
-    }
+    setIsShowDoubleClick(true);
   };
+
   const hanldeChangeInputEdit = (e: ChangeEvent<HTMLInputElement>) => {
     setInputEditData({ ...inputEditData, [e.target.name]: e.target.value });
   };
@@ -109,97 +104,150 @@ const DataTable = ({
     }
   };
 
-  const handleBlurEdit = () => {
-    if (id) {
-      dispatch(
-        editDataTable({ nameI, positionI, officeI, extnI, start_dateI, id })
-      );
-      setIsShowDoubleClick(!isShowDoubleClick);
-    }
+  useEffect(() => {
+    // document.addEventListener("click", handleClickOutside, true);
+    // return () => {
+    //   document.removeEventListener("click", handleClickOutside, false);
+    // };
+  }, []);
+
+  const handleClickOutside = () => {
+    // if (
+    //   refOutsideClick.current &&
+    //   !refOutsideClick.current.contains(event.target)
+    // ) {
+
+    dispatch(
+      editDataTable({
+        nameI,
+        positionI,
+        officeI,
+        extnI,
+        start_dateI: startDate.toString(),
+        id,
+      })
+    );
+    setIsShowDoubleClick(false);
+    //  }
   };
 
   return (
     <>
       <tr className={st(classes.root, { isShowSalary })}>
-        <td
-          className={st(classes.dtrControl)}
-          onClick={() => handleClickShow(id)}
-          onDoubleClick={() => handleDoubleCliclEdit("name", id)}
-          data-hook="dtrControl"
-        >
+        <>
           {isShowDoubleClick && nameInputEdit === "name" ? (
-            <input
-              onChange={hanldeChangeInputEdit}
-              value={nameI}
-              type="text"
-              name="nameI"
-              autoFocus
-              className={st(classes.inputEdit)}
-              onKeyDown={handleKeyDow}
-              data-hook="input-edit"
-            />
+            <td className={st(classes.dtrControl)}>
+              <OutsideClickHandler onOutsideClick={handleClickOutside}>
+                <input
+                  onChange={hanldeChangeInputEdit}
+                  value={nameI}
+                  type="text"
+                  name="nameI"
+                  autoFocus
+                  className={st(classes.inputEdit)}
+                  onKeyDown={handleKeyDow}
+                  data-hook="input-edit"
+                />
+              </OutsideClickHandler>
+            </td>
           ) : (
-            <span>{name}</span>
+            <td
+              className={st(classes.dtrControl)}
+              onClick={() => handleClickShow(id)}
+              onDoubleClick={() => handleDoubleCliclEdit("name")}
+              data-hook="dtrControl"
+            >
+              {name}
+            </td>
           )}
-        </td>
-        <td onDoubleClick={() => handleDoubleCliclEdit("position", id)}>
+        </>
+        <>
           {isShowDoubleClick && nameInputEdit === "position" ? (
-            <input
-              onChange={hanldeChangeInputEdit}
-              value={positionI}
-              type="text"
-              name="positionI"
-              className={st(classes.inputEdit)}
-              onKeyDown={handleKeyDow}
-              data-hook="input-edit"
-            />
+            <td>
+              <OutsideClickHandler onOutsideClick={handleClickOutside}>
+                <input
+                  onChange={hanldeChangeInputEdit}
+                  value={positionI}
+                  type="text"
+                  name="positionI"
+                  autoFocus
+                  className={st(classes.inputEdit)}
+                  onKeyDown={handleKeyDow}
+                  data-hook="input-edit"
+                />
+              </OutsideClickHandler>
+            </td>
           ) : (
-            <span>{position}</span>
+            <td onDoubleClick={() => handleDoubleCliclEdit("position")}>
+              {position}
+            </td>
           )}
-        </td>
+        </>
 
-        <td onDoubleClick={() => handleDoubleCliclEdit("office", id)}>
+        <>
           {id && isShowDoubleClick && nameInputEdit === "office" ? (
-            <input
-              onChange={hanldeChangeInputEdit}
-              value={officeI}
-              type="text"
-              name="officeI"
-              className={st(classes.inputEdit)}
-              onKeyDown={handleKeyDow}
-              data-hook="input-edit"
-            />
+            <td>
+              <OutsideClickHandler onOutsideClick={handleClickOutside}>
+                <input
+                  onChange={hanldeChangeInputEdit}
+                  value={officeI}
+                  type="text"
+                  name="officeI"
+                  autoFocus
+                  className={st(classes.inputEdit)}
+                  onKeyDown={handleKeyDow}
+                  data-hook="input-edit"
+                />
+              </OutsideClickHandler>
+            </td>
           ) : (
-            <span> {office}</span>
+            <td onDoubleClick={() => handleDoubleCliclEdit("office")}>
+              {office}
+            </td>
           )}
-        </td>
-        <td onDoubleClick={() => handleDoubleCliclEdit("extn", id)}>
+        </>
+        <>
           {isShowDoubleClick && nameInputEdit === "extn" ? (
-            <input
-              onChange={hanldeChangeInputEdit}
-              value={extnI}
-              type="text"
-              name="extnI"
-              className={st(classes.inputEdit)}
-              onKeyDown={handleKeyDow}
-              data-hook="input-edit"
-            />
+            <td>
+              <OutsideClickHandler onOutsideClick={handleClickOutside}>
+                {" "}
+                <input
+                  onChange={hanldeChangeInputEdit}
+                  value={extnI}
+                  type="text"
+                  name="extnI"
+                  autoFocus
+                  className={st(classes.inputEdit)}
+                  onKeyDown={handleKeyDow}
+                  data-hook="input-edit"
+                />
+              </OutsideClickHandler>
+            </td>
           ) : (
-            <span>{extn}</span>
+            <td onDoubleClick={() => handleDoubleCliclEdit("extn")}>{extn}</td>
           )}
-        </td>
-        <td onDoubleClick={() => handleDoubleCliclEdit("start_date", id)}>
-          {isShowDoubleClick && nameInputEdit === "start_date" ? (
-            <DatePicker
-              selected={startDate}
-              onChange={(date: Date) => setStartDate(date)}
-              onKeyDown={handleKeyDow}
-              showPopperArrow={false}
-            />
+        </>
+        <>
+          {id && isShowDoubleClick && nameInputEdit === "start_date" ? (
+            <td>
+              <OutsideClickHandler onOutsideClick={handleClickOutside}>
+                <DatePicker
+                  selected={startDate}
+                  onChange={(date: Date) => setStartDate(date)}
+                  onKeyDown={handleKeyDow}
+                  showPopperArrow={false}
+                  autoFocus
+                  dateFormat="yyyy/MM/dd"
+                  locale="es"
+                />
+              </OutsideClickHandler>
+            </td>
           ) : (
-            <span>{moment(start_date).format("yyyy/MM/DD")}</span>
+            <td onDoubleClick={() => handleDoubleCliclEdit("start_date")}>
+              {moment(start_date).format("yyyy/MM/DD")}
+            </td>
           )}
-        </td>
+        </>
       </tr>
       {isShowSalary ? (
         <tr>

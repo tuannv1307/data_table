@@ -10,10 +10,10 @@ export type Data_Tables = {
     extn?: string;
     salary?: string;
     start_date?: string;
-    isShowSalary: boolean;
+    isShowSalary?: boolean;
   }[];
   sizeData: number;
-  isShowSalaryIndex: boolean;
+
   disabledPrev?: boolean;
   disabledNext?: boolean;
   isSort?: boolean;
@@ -36,7 +36,7 @@ export type Actions = {
         extn?: string;
         salary?: string;
         start_date?: string;
-        isShowSalary: boolean;
+        isShowSalary?: boolean;
       }[]
     >
   ) => void;
@@ -90,7 +90,7 @@ export type Actions = {
 const initialData: Data_Tables = {
   data: [],
   sizeData: 10,
-  isShowSalaryIndex: false,
+
   disabledPrev: false,
   disabledNext: false,
   isSort: false,
@@ -123,10 +123,8 @@ const dataTablesSlice = createSlice<Data_Tables, Actions>({
     },
     showSalary: (state, action) => {
       const { id, isShowSalaryIndex } = action.payload;
-      const index = _.findIndex(state.data, (item) => item.id === id);
-      if (index) {
-        state.data[index].isShowSalary = isShowSalaryIndex;
-      }
+      const index = _.findIndex(state.data, (item) => item.id == id);
+      state.data[index].isShowSalary = isShowSalaryIndex;
     },
 
     editDataTable: (state, action) => {
@@ -154,6 +152,7 @@ const dataTablesSlice = createSlice<Data_Tables, Actions>({
       const {
         payload: { nameSort },
       } = action;
+      state.isSort = true;
       state.sortName = nameSort;
       state = _.cloneDeep(state);
     },
@@ -164,6 +163,7 @@ const dataTablesSlice = createSlice<Data_Tables, Actions>({
       } = action;
       let sort = _.sortBy(state.data, [nameSort]);
       sort = _.reverse(sort);
+
       state.data = _.cloneDeep(sort);
       state = _.cloneDeep(state);
     },
@@ -173,6 +173,7 @@ const dataTablesSlice = createSlice<Data_Tables, Actions>({
         payload: { nameSort },
       } = action;
       const sort = _.sortBy(state.data, [nameSort]);
+
       state.data = _.cloneDeep(sort);
       state = _.cloneDeep(state);
     },

@@ -36,12 +36,13 @@ const DataTables = ({ dataTable }: DataTablesProps) => {
 
   const handleClickIsSort = (type: string) => {
     const isSort = isSorted;
+    console.log(isSort);
     const nameSort = type;
     dispatch(changeName({ nameSort }));
     dispatch(changeIsSort({ isSort }));
-    if (isSort) {
+    if (isSort === true) {
       dispatch(sortAsc({ nameSort }));
-    } else {
+    } else if (isSort === false) {
       dispatch(sortDesc({ nameSort }));
     }
   };
