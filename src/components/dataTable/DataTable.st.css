@@ -9,6 +9,10 @@
     cursor: pointer;
 }
 
+.dtrControl > div {
+    display: inline-block;
+}
+
 .dtrControl::before {
     top: 50%;
     left: 5px;
@@ -49,13 +53,36 @@
 
 
 .inputEdit {
-
+    -st-states: nameInputEdit(enum(name, position, office, extn, start_date));
     outline: none;
     padding: 5px;
-    font-size: initial;
+    font-size: inherit;
 
 }
 
+.inputEdit:nameInputEdit(name) {
+    width: 196px;
+
+}
+
+.inputEdit:nameInputEdit(position) {
+    width: 214px;
+
+}
+
+.inputEdit:nameInputEdit(office) {
+    width: 169px;
+}
+
+.inputEdit:nameInputEdit(extn) {
+    width: 75px;
+
+}
+
+.inputEdit:nameInputEdit(start_date) {
+    width: 169px;
+    font-size: inherit;
+}
 
 .trBtnSave {
     text-align: center;

@@ -27,16 +27,17 @@ const DataTables = ({ dataTable }: DataTablesProps) => {
   );
 
   let isSorted = data?.isSort;
-
   let sortName = data?.sortName;
-
-  // let isShowD = data?.isShowDESC;
 
   const dispatch = useDispatch();
 
   const handleClickIsSort = (type: string) => {
-    const isSort = isSorted;
-    console.log(isSort);
+    let isSort;
+    if (sortName === type) {
+      isSort = !isSorted;
+    } else {
+      isSort = true;
+    }
     const nameSort = type;
     dispatch(changeName({ nameSort }));
     dispatch(changeIsSort({ isSort }));
@@ -56,6 +57,7 @@ const DataTables = ({ dataTable }: DataTablesProps) => {
           <th
             className={st(classes.sorting, {
               sortingName: handleChangeClassNameSort("name"),
+              sortName: "name",
             })}
             onClick={() => handleClickIsSort("name")}
             data-hook="sorting"
@@ -65,6 +67,7 @@ const DataTables = ({ dataTable }: DataTablesProps) => {
           <th
             className={st(classes.sorting, {
               sortingName: handleChangeClassNameSort("position"),
+              sortName: "position",
             })}
             onClick={() => handleClickIsSort("position")}
             data-hook="sorting"
@@ -74,6 +77,7 @@ const DataTables = ({ dataTable }: DataTablesProps) => {
           <th
             className={st(classes.sorting, {
               sortingName: handleChangeClassNameSort("office"),
+              sortName: "office",
             })}
             onClick={() => handleClickIsSort("office")}
             data-hook="sorting"
@@ -83,6 +87,7 @@ const DataTables = ({ dataTable }: DataTablesProps) => {
           <th
             className={st(classes.sorting, {
               sortingName: handleChangeClassNameSort("extn"),
+              sortName: "extn",
             })}
             onClick={() => handleClickIsSort("extn")}
             data-hook="sorting"
@@ -92,6 +97,7 @@ const DataTables = ({ dataTable }: DataTablesProps) => {
           <th
             className={st(classes.sorting, {
               sortingName: handleChangeClassNameSort("start_date"),
+              sortName: "start_date",
             })}
             onClick={() => handleClickIsSort("start_date")}
             data-hook="sorting"

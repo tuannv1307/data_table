@@ -13,11 +13,11 @@ export type Data_Tables = {
     isShowSalary?: boolean;
   }[];
   sizeData: number;
-
   disabledPrev?: boolean;
   disabledNext?: boolean;
   isSort?: boolean;
   sortName: string;
+  nameClick: string;
   currentPage: number;
   linitPageData: number;
   typeArr: string;
@@ -83,8 +83,18 @@ export type Actions = {
     action: PayloadAction<{ searchDataTable: string }>
   ) => void;
 
-  setLimitPageData: (state: any, action: any) => void;
-  setBtnPrevAndNext: (state: any, action: any) => void;
+  setLimitPageData: (
+    state: Data_Tables,
+    action: PayloadAction<{ linitPageData: number }>
+  ) => void;
+  setBtnPrevAndNext: (
+    state: Data_Tables,
+    action: PayloadAction<{ disabledPrev: boolean; disabledNext: boolean }>
+  ) => void;
+  changeNameClick: (
+    state: Data_Tables,
+    action: PayloadAction<{ nameClick: string }>
+  ) => void;
 };
 
 const initialData: Data_Tables = {
@@ -93,8 +103,9 @@ const initialData: Data_Tables = {
 
   disabledPrev: false,
   disabledNext: false,
-  isSort: false,
+  isSort: true,
   sortName: "name",
+  nameClick: "",
   currentPage: 1,
   linitPageData: 1,
   typeArr: "DATA_SET_LENGTH",
@@ -157,6 +168,15 @@ const dataTablesSlice = createSlice<Data_Tables, Actions>({
       state = _.cloneDeep(state);
     },
 
+    changeNameClick: (state, action) => {
+      const {
+        payload: { nameClick },
+      } = action;
+
+      state.nameClick = nameClick;
+      state = _.cloneDeep(state);
+    },
+
     sortDesc: (state, action) => {
       const {
         payload: { nameSort },
@@ -182,7 +202,7 @@ const dataTablesSlice = createSlice<Data_Tables, Actions>({
       const {
         payload: { isSort },
       } = action;
-      state.isSort = !isSort;
+      state.isSort = isSort;
       state = _.cloneDeep(state);
     },
 
@@ -211,9 +231,9 @@ const dataTablesSlice = createSlice<Data_Tables, Actions>({
       } = action;
       state.currentPage = 1;
       state.searchDataTable = searchDataTable;
-
       state = _.cloneDeep(state);
     },
+
     setLimitPageData: (state, action) => {
       const {
         payload: { linitPageData },
@@ -238,6 +258,7 @@ export const {
   setBtnPrevAndNext,
   searchData,
   changeName,
+  changeNameClick,
   setLimitPageData,
 } = dataTablesSlice.actions;
 

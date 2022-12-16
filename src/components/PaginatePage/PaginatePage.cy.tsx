@@ -10,6 +10,7 @@ let dataTable = [
     office: "ddawdaw",
     extn: "ddadadawd",
     start_date: "2001/12/31",
+    isShowSalary: false,
   },
 ];
 
@@ -42,7 +43,9 @@ describe("App.cy.tsx", () => {
       </Provider>
     );
 
-    cy.get('[data-hook="data-info"]').contains("Showing 1 to 0 of 0 entries");
+    cy.get('[data-hook="data-info"]').contains(
+      "Showing 1 to 1 of 1 entries (filtered from 0 total entries)"
+    );
   });
 
   it("show mount click", () => {

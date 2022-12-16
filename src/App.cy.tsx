@@ -70,6 +70,20 @@ describe("App.cy.tsx", () => {
       .wait(1000)
       .click()
       .wait(1000);
+    cy.get('[data-hook="dtrControl"]')
+      .eq(1)
+      .wait(1000)
+      .click()
+      .wait(1000)
+      .click()
+      .wait(1000);
+    cy.get('[data-hook="dtrControl"]')
+      .eq(5)
+      .wait(1000)
+      .click()
+      .wait(1000)
+      .click()
+      .wait(1000);
   });
 
   it("show mount with doubleClick edit input", () => {
@@ -79,11 +93,22 @@ describe("App.cy.tsx", () => {
     cy.wait(1000);
 
     cy.get('[data-hook="dtrControl"]').eq(0).wait(1000).dblclick().wait(1000);
-    cy.get('[data-hook="input-edit"]')
-      .eq(1)
-      .focus()
-      .type("123tuan")
-      .trigger("keydown", { key: "Enter" });
+    cy.get('[data-hook="input-edit"]').focus().type("123tuan");
+
+    cy.get('[data-hook="td-position"]').eq(1).wait(1000).dblclick().wait(1000);
+    cy.get('[data-hook="input-edit"]').focus().type("123tuan");
+
+    cy.get('[data-hook="td-office"]').eq(2).wait(1000).dblclick().wait(1000);
+    cy.get('[data-hook="input-edit"]').focus().type("123tuan");
+
+    cy.get('[data-hook="td-extn"]').eq(3).wait(1000).dblclick().wait(1000);
+    cy.get('[data-hook="input-edit"]').focus().type("123tuan");
+
+    cy.get('[data-hook="td-start_date"]')
+      .eq(4)
+      .wait(1000)
+      .dblclick()
+      .wait(1000);
   });
   it("show mount click paginate with next ", () => {
     cy.viewport("macbook-15");

@@ -59,6 +59,7 @@ describe("App.cy.tsx", () => {
     cy.get('[data-hook="sorting"]').eq(3).wait(1000).click().wait(1000).click();
     cy.get('[data-hook="sorting"]').eq(4).wait(1000).click().wait(1000).click();
   });
+
   it("show mount with data", () => {
     cy.viewport("macbook-15");
 
@@ -95,17 +96,10 @@ describe("App.cy.tsx", () => {
       </Provider>
     );
 
-    cy.get('[data-hook="dtrControl"]')
-      .eq(0)
-      .wait(1000)
-      .click()
-      .wait(1000)
-      .click();
     cy.get('[data-hook="dtrControl"]').eq(0).wait(1000).dblclick().wait(1000);
-    cy.get('[data-hook="input-edit"]')
-      .eq(1)
-      .focus()
-      .type("123tuan")
-      .trigger("keydown", { key: "Enter" });
+    cy.get('[data-hook="input-edit"]').focus().type("123tuan");
+
+    cy.get('[data-hook="td-position"]').eq(2).wait(1000).dblclick().wait(1000);
+    cy.get('[data-hook="input-edit"]').focus().type("123tuan");
   });
 });

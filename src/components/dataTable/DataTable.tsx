@@ -1,9 +1,9 @@
-import { ChangeEvent, useState, KeyboardEvent, useRef, useEffect } from "react";
+import { ChangeEvent, useState, KeyboardEvent, useEffect } from "react";
 import _ from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Data_Tables,
-  changeName,
+  changeNameClick,
   editDataTable,
   showSalary,
 } from "../../store/datatableReducer";
@@ -36,7 +36,7 @@ const DataTable = ({
   const data: Data_Tables = useSelector(
     (state: { datatable: Data_Tables }) => state.datatable
   );
-  const refOutsideClick = useRef<HTMLTableRowElement>();
+
   const [isShowClick, setIsShowClick] = useState<boolean>(false);
   const [isShowDoubleClick, setIsShowDoubleClick] = useState<boolean>(false);
   const [startDate, setStartDate] = useState(moment(start_date).toDate());
@@ -45,7 +45,7 @@ const DataTable = ({
     positionI?: string;
     officeI?: string;
     extnI?: string;
-    start_dateI?: string;
+    start_dateI?: string | void;
   }>({
     nameI: name,
     positionI: position,
@@ -53,9 +53,11 @@ const DataTable = ({
     extnI: extn,
     start_dateI: start_date,
   });
-  const nameInputEdit = data.sortName;
+  const nameInputEdit = data.nameClick;
+
   const dispatch = useDispatch();
-  let { nameI, positionI, officeI, extnI, start_dateI } = inputEditData;
+
+  let { nameI, positionI, officeI, extnI } = inputEditData;
 
   let timer = 0;
   let delay = 200;
@@ -73,8 +75,8 @@ const DataTable = ({
   };
 
   const handleDoubleCliclEdit = (type: string) => {
-    const nameSort = type;
-    dispatch(changeName({ nameSort }));
+    const nameClick = type;
+    dispatch(changeNameClick({ nameClick }));
     clearTimeout(timer);
     prevent = true;
     setIsShowDoubleClick(true);
@@ -100,23 +102,20 @@ const DataTable = ({
         setIsShowDoubleClick(false);
       }
     } else if (e.key === "Escape") {
+      setInputEditData({
+        nameI: name,
+        positionI: position,
+        officeI: office,
+        extnI: extn,
+        start_dateI: setStartDate(moment(start_date).toDate()),
+      });
       setIsShowDoubleClick(false);
     }
   };
 
-  useEffect(() => {
-    // document.addEventListener("click", handleClickOutside, true);
-    // return () => {
-    //   document.removeEventListener("click", handleClickOutside, false);
-    // };
-  }, []);
+  useEffect(() => {}, []);
 
   const handleClickOutside = () => {
-    // if (
-    //   refOutsideClick.current &&
-    //   !refOutsideClick.current.contains(event.target)
-    // ) {
-
     dispatch(
       editDataTable({
         nameI,
@@ -128,7 +127,6 @@ const DataTable = ({
       })
     );
     setIsShowDoubleClick(false);
-    //  }
   };
 
   return (
@@ -144,7 +142,7 @@ const DataTable = ({
                   type="text"
                   name="nameI"
                   autoFocus
-                  className={st(classes.inputEdit)}
+                  className={st(classes.inputEdit, { nameInputEdit })}
                   onKeyDown={handleKeyDow}
                   data-hook="input-edit"
                 />
@@ -171,14 +169,17 @@ const DataTable = ({
                   type="text"
                   name="positionI"
                   autoFocus
-                  className={st(classes.inputEdit)}
+                  className={st(classes.inputEdit, { nameInputEdit })}
                   onKeyDown={handleKeyDow}
                   data-hook="input-edit"
                 />
               </OutsideClickHandler>
             </td>
           ) : (
-            <td onDoubleClick={() => handleDoubleCliclEdit("position")}>
+            <td
+              data-hook="td-position"
+              onDoubleClick={() => handleDoubleCliclEdit("position")}
+            >
               {position}
             </td>
           )}
@@ -194,14 +195,17 @@ const DataTable = ({
                   type="text"
                   name="officeI"
                   autoFocus
-                  className={st(classes.inputEdit)}
+                  className={st(classes.inputEdit, { nameInputEdit })}
                   onKeyDown={handleKeyDow}
                   data-hook="input-edit"
                 />
               </OutsideClickHandler>
             </td>
           ) : (
-            <td onDoubleClick={() => handleDoubleCliclEdit("office")}>
+            <td
+              data-hook="td-office"
+              onDoubleClick={() => handleDoubleCliclEdit("office")}
+            >
               {office}
             </td>
           )}
@@ -210,21 +214,25 @@ const DataTable = ({
           {isShowDoubleClick && nameInputEdit === "extn" ? (
             <td>
               <OutsideClickHandler onOutsideClick={handleClickOutside}>
-                {" "}
                 <input
                   onChange={hanldeChangeInputEdit}
                   value={extnI}
                   type="text"
                   name="extnI"
                   autoFocus
-                  className={st(classes.inputEdit)}
+                  className={st(classes.inputEdit, { nameInputEdit })}
                   onKeyDown={handleKeyDow}
                   data-hook="input-edit"
                 />
               </OutsideClickHandler>
             </td>
           ) : (
-            <td onDoubleClick={() => handleDoubleCliclEdit("extn")}>{extn}</td>
+            <td
+              data-hook="td-extn"
+              onDoubleClick={() => handleDoubleCliclEdit("extn")}
+            >
+              {extn}
+            </td>
           )}
         </>
         <>
@@ -238,12 +246,15 @@ const DataTable = ({
                   showPopperArrow={false}
                   autoFocus
                   dateFormat="yyyy/MM/dd"
-                  locale="es"
+                  className={st(classes.inputEdit, { nameInputEdit })}
                 />
               </OutsideClickHandler>
             </td>
           ) : (
-            <td onDoubleClick={() => handleDoubleCliclEdit("start_date")}>
+            <td
+              data-hook="td-start_date"
+              onDoubleClick={() => handleDoubleCliclEdit("start_date")}
+            >
               {moment(start_date).format("yyyy/MM/DD")}
             </td>
           )}

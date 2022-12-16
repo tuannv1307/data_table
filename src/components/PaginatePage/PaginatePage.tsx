@@ -26,6 +26,7 @@ const PaginatePage = ({ dataTable }: PaginatePageProps) => {
   const data: Data_Tables = useSelector(
     (state: { datatable: Data_Tables }) => state.datatable
   );
+
   const dispatch = useDispatch();
 
   const lengthData = dataTable?.length;
@@ -78,7 +79,7 @@ const PaginatePage = ({ dataTable }: PaginatePageProps) => {
   for (let index = 1; index <= linitPageData; index++) {
     arrBTN.push(index);
   }
-  console.log(data);
+
   return (
     <div className={st(classes.root)}>
       <div className={st(classes.dataTablesInfo)} data-hook="data-info">

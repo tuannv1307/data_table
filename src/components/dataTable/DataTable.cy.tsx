@@ -12,9 +12,9 @@ describe("App.cy.tsx", () => {
     expect(true).to.be.true; // yup, fine
   });
 
-  it("show mount with click", () => {
+  it("show mount with doubleclick", () => {
     cy.viewport("macbook-15");
-    const arr = {
+    const obj = {
       name: "123",
       position: "456",
       office: "789",
@@ -22,27 +22,28 @@ describe("App.cy.tsx", () => {
       start_date: "wfwer",
       salary: "dawpoi",
       id: "1",
+      isShowSalary: false,
+    };
+    const obj2 = {
+      name: "123",
+      position: "456",
+      office: "789",
+      extn: "123456",
+      start_date: "wfwer",
+      salary: "dawpoi",
+      id: "1",
+      isShowSalary: true,
     };
     cy.mount(
       <Provider store={store}>
-        <DataTable {...arr} />
-        <DataTable {...arr} />
+        <DataTable {...obj} />
+        <DataTable {...obj2} />
       </Provider>
     );
 
-    cy.get('[data-hook="dtrControl"]')
-      .eq(0)
-      .wait(1000)
-      .click()
-      .wait(1000)
-      .click();
-
     cy.get('[data-hook="dtrControl"]').eq(0).wait(1000).dblclick().wait(1000);
-    cy.get('[data-hook="input-edit"]')
+    cy.get('[data-hook="input-edit"]').focus().type("123tuan");
 
-      .eq(1)
-      .focus()
-      .type("123tuan")
-      .trigger("keydown", { key: "Enter" });
+    cy.get('[data-hook="td-position"]').eq(1).wait(1000).dblclick().wait(1000);
   });
 });
